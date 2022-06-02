@@ -1,0 +1,5 @@
+master/data/*
+!master/data/.gitignore
+
+slave/data/*
+!slave/data/.gitignore

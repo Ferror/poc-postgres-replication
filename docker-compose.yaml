@@ -1,0 +1,21 @@
+services:
+    slave:
+        image: postgres:14-alpine
+        environment:
+            POSTGRES_PASSWORD: postgres
+        volumes:
+            - ./slave/data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+
+    master:
+        image: postgres:14-alpine
+        environment:
+            POSTGRES_PASSWORD: postgres
+        volumes:
+            - ./master/data:/var/lib/postgresql/data
+            - ./master/init:/docker-entrypoint-initdb.d:delegated
+            - ./master/postgresql.conf:/usr/local/share/postgresql/postgresql.conf:delegated
+            - ./master/pg_hba.conf:/usr/local/share/postgresql/pg_hba.conf:delegated
+        ports:
+            - 5433:5432
